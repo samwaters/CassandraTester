@@ -6,8 +6,17 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Cluster.Builder;
 import com.datastax.driver.core.Session;
 
+/**
+ * Main class to parse parameters and start threads
+ * @author Sam Waters <sam@samwaters.com>
+ * @date 20-05-2015
+ */
 public class CassTest
 {
+	/**
+	 * Main method to begin execution
+	 * @param args Parameters passed to the class
+	 */
 	public static void main(String[] args)
 	{
 		if(args.length < 4)
@@ -25,6 +34,7 @@ public class CassTest
 		}
 		if(mode.equals("create"))
 		{
+			//Used to create the table if it doesn't exist
 			System.out.println("Creating table samTest...");
 			Builder builder = Cluster.builder();
 			builder.addContactPoint(host);
@@ -36,6 +46,7 @@ public class CassTest
 			return;
 		}
 		int threadCount = Integer.parseInt(args[3]);
+		//Store all the threads we create so we can shut them down later
 		ArrayList<BaseThread> threads = new ArrayList<BaseThread>();
 		if(mode.equals("get"))
 		{
@@ -55,16 +66,17 @@ public class CassTest
 				t.start();
 			}
 		}
+		//Run for 30 seconds
 		long endTime = System.currentTimeMillis() + 30000;
 		while(System.currentTimeMillis() < endTime)
 		{
 			try
 			{
-				Thread.sleep(1000);
+				Thread.sleep(1000); //We don't need to do any work; the threads are doing it all
 			}
-			catch(InterruptedException e)
-			{ }
+			catch(InterruptedException e) { }
 		}
+		//Shut down all of the threads cleanly
 		for(int i=0; i<threads.size(); i++)
 		{
 			threads.get(i).shutdown(false);
