@@ -20,13 +20,13 @@ Usage: CassTest.jar <host> <keyspace> <mode> <threads>
 Example: ```java -jar CassTest.jar 127.0.0.1 performancetest get 10```
 
 ### Creating required tables
-To create the requried tables, execute the following:
+To create the requried tables, execute the following (where the keyspace is performancetest):
 
 ```java -jar CassTest.jar 127.0.0.1 performancetest create 0```
 
 ### Operation Modes
 #### Create
-This will create the keyspace on the cluster and then exit
+This will create the required tables on the cluster and then exit
 #### Get
 This will perform read operations on the cluster
 #### Put
