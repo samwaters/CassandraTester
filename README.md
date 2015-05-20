@@ -4,6 +4,7 @@ Load tester for Cassandra, written in Java
 ## Dependencies
 * Java 1.8+
 * A Cassandra cluster supporting CQL
+* An existing keyspace on the Cassandra cluster
 
 ## Usage
 Executing the jar from the commandline will give the following:
@@ -17,6 +18,11 @@ Usage: CassTest.jar <host> <keyspace> <mode> <threads>
 * &lt;threads&gt; is how many operation threads to spawn
 
 Example: ```java -jar CassTest.jar 127.0.0.1 performancetest get 10```
+
+### Creating required tables
+To create the requried tables, execute the following:
+
+```java -jar CassTest.jar 127.0.0.1 performancetest create 0```
 
 ### Operation Modes
 #### Create
